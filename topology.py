@@ -7,6 +7,7 @@ from mininet.net import Mininet
 from mininet.node import Controller
 from mininet.cli import CLI
 from mininet.log import setLogLevel, info
+from mininet.link import TCLink
 
 class MyTopology(Topo):
 
@@ -29,12 +30,12 @@ class MyTopology(Topo):
         s3 = self.addSwitch('s3')
 
         info("*** Creating links\n")
-        self.addLink(s2,h2p)
-        self.addLink(s2,h1a)
-        self.addLink(s3,h3p)
-        self.addLink(s3,h4p)
-        self.addLink(s1,s2)
-        self.addLink(s1,s3)
+        self.addLink(s2,h2p,cls=TCLink,bw=1000,delay='1ms')
+        self.addLink(s2,h1a,cls=TCLink,bw=1000,delay='1ms')
+        self.addLink(s3,h3p,cls=TCLink,bw=1000,delay='1ms')
+        self.addLink(s3,h4p,cls=TCLink,bw=1000,delay='1ms')
+        self.addLink(s1,s2,cls=TCLink,bw=100,delay='100ms')
+        self.addLink(s1,s3,cls=TCLink,bw=100,delay='100ms')
 
 topos = { 'mytopo': (lambda: MyTopology())}
 
